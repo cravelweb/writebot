@@ -1,8 +1,8 @@
 <?php
 /*
-  Plugin Name: Ghostwriter (ChatGPT AutoPost)
+  Plugin Name: Ghostwriter (ChatGPT Text Generator)
   Plugin URI : https://knowten.jp
-  Description: ChatGPT AutoPost
+  Description: ChatGPTを利用して、自動で記事を生成します。
   Version: 1.0.0
   Author: Cravel
   Author URI: https://cravelweb.com
@@ -22,5 +22,4 @@ define('CRAVEL_CHATGPT_AUTOPOST_OPTION', 'cravel_chatgpt_autopost_option');
 
 
 require_once CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/class/admin.php';
-require_once CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/class/autopost.php';
 require_once CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/class/writing.php';
