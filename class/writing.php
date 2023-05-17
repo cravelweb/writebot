@@ -46,6 +46,7 @@ class CravelChatGptAutoPostWriting
     wp_localize_script($script_handle, 'CravelChatGptAutopostAjax', array(
       'ajaxurl' => admin_url('admin-ajax.php'),
       'nonce' => wp_create_nonce('cravel_chatgpt_autopost_nonce'),
+      'ghostUrl' => CRAVEL_CHATGPT_AUTOPOST_PLUGIN_URL . 'ghosts/ghost.json',
     ));
     $translation_array = array(
       'constraints' =>  __("Constraints", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),

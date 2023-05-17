@@ -1,6 +1,7 @@
 jQuery(document).ready(function ($) {
   var textdomain = "cravel-chatgpt-autopost";
-  var jsonUrl = "/wp-content/plugins/ghostwriter/json/ghost.json";
+  var jsonUrl = CravelChatGptAutopostAjax.ghostUrl
+  //"/wp-content/plugins/ghostwriter/json/ghost.json";
   var jsonData = {};
 
   fetch(jsonUrl)
