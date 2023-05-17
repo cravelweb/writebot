@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Ghostwriter (ChatGPT Text Generator)
+  Plugin Name: AI Writer (ChatGPT Text Generator)
   Plugin URI : https://knowten.jp
   Description: Use ChatGPT to create articles automatically.
   Version: 1.0.0
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) exit;
 
 define('CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR', __DIR__);
 define('CRAVEL_CHATGPT_AUTOPOST_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('CRAVEL_CHATGPT_AUTOPOST_PLUGIN_NAME', 'Ghostwriter');
+define('CRAVEL_CHATGPT_AUTOPOST_PLUGIN_NAME', 'AI Writer');
 define('CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN', 'cravel-chatgpt-autopost');
 
 // オプション名設定
