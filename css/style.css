@@ -1,0 +1,18 @@
+.ghost-writer-settings h3 {
+  font-size: 14px;
+  padding: 8px;
+  background-color: #eee;
+}
+
+.ghost-writer-settings dl {
+  display: flex;
+  flex-wrap: wrap;
+}
+.ghost-writer-settings dt {
+  margin: 0 0 8px 0;
+  width: 170px;
+}
+.ghost-writer-settings dd {
+  margin: 0 0 8px 0;
+  width: calc(100% - 200px);
+}
