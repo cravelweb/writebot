@@ -1,0 +1,94 @@
+{
+  "persona": {
+    "name": "Role Specification",
+    "items": {
+      "journalist": {
+        "name": "Journalist/Writer",
+        "prompt": " - You are a professional journalist. Write articles with precise and sharp insights."
+      },
+      "blogger": {
+        "name": "Blogger/Influencer",
+        "prompt": " - You are a professional influencer or blogger. Provide clear and unambiguous commentary that is easy for readers to understand."
+      },
+      "teacher": {
+        "name": "Teacher/Instructor",
+        "prompt": " - You are a professional teacher or instructor. Provide explanations that are easy for beginners to understand and more detailed explanations."
+      },
+      "operator": {
+        "name": "Technician/Support Engineer",
+        "prompt": " - You are a professional support engineer. Provide concise answers and information and procedures to help in-depth understanding."
+      }
+    }
+  },
+  "types": {
+    "name": "Article Type",
+    "items": {
+      "blog": {
+        "name": "Blog",
+        "description": "Write a blog article. Enter the theme of the blog article to write.",
+        "prompt": " - Write the main text of the blog post based on the given theme.- Emphasize the given keywords and write with consideration for SEO."
+      },
+      "news": {
+        "name": "News",
+        "description": "Write a news article. Enter a summary of the news to write.",
+        "prompt": " - Write the main text of the news article by reorganizing and rewriting based on the given theme.- Emphasize the given keywords and write with consideration for SEO."
+      },
+      "column": {
+        "name": "Column",
+        "description": "Write a column article. Enter the theme of the column to write.",
+        "prompt": " - Based on the given theme, write your own views and opinions, based on past columns and discussions related to them.- Emphasize the given keywords and write with consideration for SEO."
+      },
+      "explanation": {
+        "name": "Explanation",
+        "description": "Write an explanatory article. Enter a specific theme or keyword to explain.",
+        "prompt": " - Based on the given theme, explain the basic knowledge and technical terms related to it in a way that is easy for readers to understand.- Emphasize the given keywords and write with consideration for SEO."
+      },
+      "review ": {
+        "name": "Review",
+        "description": "Write a review article. Enter the name of the product to review or an overview of the evaluation.",
+        "prompt": " - Write the main text of the detailed review article based on the given theme.- Emphasize the given keywords and write with consideration for SEO."
+      },
+      "summary": {
+        "name": "Summary",
+        "description": "Summarize the given text. Enter the text to summarize.",
+        "prompt": " - Summarize the given theme.- Emphasize the given keywords and write."
+      },
+      "story": {
+        "name": "Fiction / Story Creation",
+        "description": "Create a story based on the given theme. Enter a theme.",
+        "prompt": " - Create a story based on the given theme.- Emphasize the given keywords and write."
+      },
+      "faq": {
+        "name": "FAQ",
+        "description": "Write an article in Q&A format. Enter a question.",
+        "prompt": " - Based on the given question, write an answer and explanation related to that question.- Emphasize the given keywords and write."
+      }
+    }
+  },
+  "length": {
+    "name": "Word Count Specification",
+    "items": {
+      "desu": {
+        "name": "More than 1,000 words",
+        "prompt": " - Write more than 1,000 words."
+      },
+      "da": {
+        "name": "More than 3,000 words",
+        "prompt": " - Write more than 3,000 words."
+      },
+      "keigo": {
+        "name": "Less than 200 words",
+        "prompt": " - Write less than 200 words."
+      }
+    }
+  },
+  "markups": {
+    "name": "Markup Specification",
+    "items": {
+      "html": {
+        "name": "Generate with added HTML",
+        "prompt": " - Text should be appropriately HTML marked up. Also, the elements used for markup should only be h2, h3, h4, p, ul, ol, li."
+      }
+    }
+  }
+}

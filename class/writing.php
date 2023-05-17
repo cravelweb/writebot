@@ -163,8 +163,8 @@ class CravelChatGptAutoPostWriting
       $html .= '</select>';
       $html .= '</dd>';
     }
-    //$html .=  '<dt>記述する言語</dt>';
-    //$html .=  '<dd>' . $this->get_languages_html($selected_language) . '</dd>';
+    $html .=  '<dt>' . __('Language') . '</dt>';
+    $html .=  '<dd>' . $this->get_languages_html($selected_language) . '</dd>';
 
     $user_prompt = get_option('user_prompt', '');
     $html .= '<dt>' . __('User Prompt') . '</dt>';

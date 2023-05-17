@@ -1,6 +1,6 @@
 jQuery(document).ready(function ($) {
   var textdomain = "cravel-chatgpt-autopost";
-  var jsonUrl = CravelChatGptAutopostAjax.ghostUrl
+  var jsonUrl = CravelChatGptAutopostAjax.ghostUrl;
   //"/wp-content/plugins/ghostwriter/json/ghost.json";
   var jsonData = {};
 
@@ -34,6 +34,9 @@ jQuery(document).ready(function ($) {
           allPrompt += prompt ? prompt + " " : "";
         });
 
+        var selectedLang = $("select.selected_language").val();
+        var lang = $("select.selected_language option:selected").text();
+
         var userPrompt = $('textarea[name="user_prompt"]').val();
         var postTheme = $('textarea[name="post_theme"]').val();
         var postKeywords = $('textarea[name="post_keywords"]').val();
@@ -42,12 +45,13 @@ jQuery(document).ready(function ($) {
         margedPrompt += allPrompt
           ? "@" + text_label.constraints + ":" + allPrompt
           : "";
-        margedPrompt += userPrompt ? "・" + userPrompt : "";
+        margedPrompt += userPrompt ? " - " + userPrompt : "";
+        margedPrompt += lang ? " - " + lang : "";
         margedPrompt += postTheme
           ? " @" + text_label.theme + ":" + postTheme
           : "";
         margedPrompt += postKeywords
-          ? " @" + text_label.keywords + ":" + +postKeywords
+          ? " @" + text_label.keywords + ":" + postKeywords
           : "";
         margedPrompt += " @" + text_label.output + ":";
 

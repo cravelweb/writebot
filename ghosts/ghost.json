@@ -1,93 +1,122 @@
 {
   "persona": {
-    "name": "Role Specification",
+    "name": "役割の指定",
     "items": {
       "journalist": {
-        "name": "Journalist/Writer",
-        "prompt": "・You are a professional journalist. Write articles with precise and sharp insights."
+        "name": "ジャーナリスト / ライター",
+        "prompt": " - あなたはプロのジャーナリストです。的確で鋭い考察の記事を執筆します。"
       },
       "blogger": {
-        "name": "Blogger/Influencer",
-        "prompt": "・You are a professional influencer or blogger. Provide clear and unambiguous commentary that is easy for readers to understand."
+        "name": "ブロガー / インフルエンサー",
+        "prompt": " - あなたはプロのインフルエンサー、ブロガーです。読者にわかりやすい平易な表現、曖昧さのない明確な評論を行います。"
       },
       "teacher": {
-        "name": "Teacher/Instructor",
-        "prompt": "・You are a professional teacher or instructor. Provide explanations that are easy for beginners to understand and more detailed explanations."
+        "name": "講師 / インストラクター",
+        "prompt": " - あなたはプロの講師、インストラクターです。初学者にわかりやすい平易な表現とより詳細な解説を行います。"
       },
       "operator": {
-        "name": "Technician/Support Engineer",
-        "prompt": "・You are a professional support engineer. Provide concise answers and information and procedures to help in-depth understanding."
+        "name": "技術者 / サポートエンジニア",
+        "prompt": " - あなたはプロのサポートエンジニアです。簡潔な回答の提示と詳細な理解を助ける情報、手順を提供してください。"
       }
     }
   },
   "types": {
-    "name": "Article Type",
+    "name": "記事の種類",
     "items": {
       "blog": {
-        "name": "Blog",
-        "description": "Write a blog article. Enter the theme of the blog article to write.",
-        "prompt": "・Write the main text of the blog post based on the given theme.・Emphasize the given keywords and write with consideration for SEO."
+        "name": "ブログ",
+        "description": "ブログ記事を執筆します。執筆するブログ記事のテーマを入力してください。",
+        "prompt": " - 与えられたテーマを基にブログ投稿の本文を記述してください。 - 与えられたキーワードを重視してSEOに配慮したライティングを行ってください。"
       },
       "news": {
-        "name": "News",
-        "description": "Write a news article. Enter a summary of the news to write.",
-        "prompt": "・Write the main text of the news article by reorganizing and rewriting based on the given theme.・Emphasize the given keywords and write with consideration for SEO."
+        "name": "ニュース",
+        "description": "ニュース記事を執筆します。執筆するニュースの概要を入力してください。",
+        "prompt": " - 与えられたテーマを基に再構成、リライトしたニュース記事の本文を記述してください。 - 与えられたキーワードを重視してSEOに配慮したライティングを行ってください。"
       },
       "column": {
-        "name": "Column",
-        "description": "Write a column article. Enter the theme of the column to write.",
-        "prompt": "・Based on the given theme, write your own views and opinions, based on past columns and discussions related to them.・Emphasize the given keywords and write with consideration for SEO."
+        "name": "コラム",
+        "description": "コラム記事を執筆します。執筆するコラムのテーマを入力してください。",
+        "prompt": " - 与えられたテーマを基にそれらに関する過去のコラムや議論を基に、独自の見解、意見を記述してください。 - 与えられたキーワードを重視してSEOに配慮したライティングを行ってください。"
       },
       "explanation": {
-        "name": "Explanation",
-        "description": "Write an explanatory article. Enter a specific theme or keyword to explain.",
-        "prompt": "・Based on the given theme, explain the basic knowledge and technical terms related to it in a way that is easy for readers to understand.・Emphasize the given keywords and write with consideration for SEO."
+        "name": "解説",
+        "description": "解説記事を執筆します。解説する特定のテーマ、キーワードを入力してください。",
+        "prompt": " - 与えられたテーマを基にそれらに関する基礎知識や専門用語を読者によりわかりやすく解説してください。 - 与えられたキーワードを重視してSEOに配慮したライティングを行ってください。"
       },
       "review ": {
-        "name": "Review",
-        "description": "Write a review article. Enter the name of the product to review or an overview of the evaluation.",
-        "prompt": "・Write the main text of the detailed review article based on the given theme.・Emphasize the given keywords and write with consideration for SEO."
+        "name": "レビュー",
+        "description": "レビュー記事を執筆します。レビューする商品の名前や、評価の概要を入力してください。",
+        "prompt": " - 与えられたテーマを基にそれらに関する詳細なレビュー記事の本文を記述してください。 - 与えられたキーワードを重視してSEOに配慮したライティングを行ってください。"
       },
       "summary": {
-        "name": "Summary",
-        "description": "Summarize the given text. Enter the text to summarize.",
-        "prompt": "・Summarize the given theme.・Emphasize the given keywords and write."
+        "name": "要約",
+        "description": "与えられたテキストを要約します。要約する文章を入力してください。",
+        "prompt": " - 与えられたテーマを要約してください。 - 与えられたキーワードを重視してライティングを行ってください。"
       },
       "story": {
-        "name": "Fiction / Story Creation",
-        "description": "Create a story based on the given theme. Enter a theme.",
-        "prompt": "・Create a story based on the given theme.・Emphasize the given keywords and write."
+        "name": "フィクション / 物語の創作",
+        "description": "与えられたテーマを基に物語を創作します。テーマを入力してください。",
+        "prompt": " - 与えられたテーマを基に、物語を創作してください。 - 与えられたキーワードを重視してライティングを行ってください。"
       },
       "faq": {
         "name": "FAQ",
-        "description": "Write an article in Q&A format. Enter a question.",
-        "prompt": "・Based on the given question, write an answer and explanation related to that question.・Emphasize the given keywords and write."
+        "description": "Q&A形式の記事を執筆します。質問を入力してください。",
+        "prompt": " - 与えられた質問を基に、その質問に関する答えと解説を記述してください。 - 与えられたキーワードを重視してライティングを行ってください。"
+      }
+    }
+  },
+  "styles": {
+    "name": "文体の指定",
+    "items": {
+      "desu": {
+        "name": "ですます調",
+        "prompt": " - 文体は「ですます調」で記述すること。"
+      },
+      "da": {
+        "name": "だである調",
+        "prompt": " - 文体は「だである調」で記述すること。"
+      },
+      "keigo": {
+        "name": "敬語",
+        "prompt": " - 文体は「敬語」で記述すること。"
+      },
+      "kougo": {
+        "name": "口語体",
+        "prompt": " - 口語体で記述すること。"
+      },
+      "casual": {
+        "name": "カジュアル",
+        "prompt": " - 砕けたカジュアルな文体で記述すること。"
+      },
+      "taigen": {
+        "name": "体言止め",
+        "prompt": " - 文末は「体言止め」にすること。"
       }
     }
   },
   "length": {
-    "name": "Word Count Specification",
+    "name": "文字数の指定",
     "items": {
       "desu": {
-        "name": "More than 1,000 characters",
-        "prompt": "・Write more than 1,000 characters."
+        "name": "1,000文字以上",
+        "prompt": " - 1000文字以上で記述すること。"
       },
       "da": {
-        "name": "More than 3,000 characters",
-        "prompt": "・Write more than 3,000 characters."
+        "name": "3,000文字以上",
+        "prompt": " - 3000文字以上で記述すること。"
       },
       "keigo": {
-        "name": "Less than 200 characters",
-        "prompt": "・Write less than 200 characters."
+        "name": "200文字以下",
+        "prompt": " - 200文字以下で記述すること。"
       }
     }
   },
   "markups": {
-    "name": "Markup Specification",
+    "name": "マークアップの指定",
     "items": {
       "html": {
-        "name": "Generate with added HTML",
-        "prompt": "・Text should be appropriately HTML marked up. Also, the elements used for markup should only be h2, h3, h4, p, ul, ol, li."
+        "name": "HTMLを追加して生成する",
+        "prompt": " - 文章は適切にHTMLマークアップを行うこと。また、マークアップに使用する要素はh2、h3、h4、p、ul、ol、liのみとすること。"
       }
     }
   }
