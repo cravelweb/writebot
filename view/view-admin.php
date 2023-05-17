@@ -96,12 +96,10 @@ class CravelChatGptAutoPostAdminView
                     ?>
                   </select>
                 </label></div>
-              </label>
+            </td>
+          </tr>
+        </table>
       </div>
-      </td>
-      </tr>
-      </table>
-    </div>
     </div>
   <?php
     $html = ob_get_contents();

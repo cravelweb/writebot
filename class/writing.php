@@ -282,15 +282,16 @@ class CravelChatGptAutoPostWriting
             "content" => $prompt
           ]
         ],
-        'max_tokens' => 2000,
+        'max_tokens' => 3000,
         'temperature' => 0.9,
+        //'stream' => true,
         'stop' => ['\n', 'Human:', 'AI:'],
       )));
     } else {
       curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
         'model' => CravelOpenAI::get_current_model(),
         'prompt' => $prompt,
-        'max_tokens' => 1000,
+        'max_tokens' => 1500,
       )));
     }
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(

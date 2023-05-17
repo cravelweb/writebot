@@ -10,7 +10,7 @@ jQuery(document).ready(function ($) {
       function updateDescription() {
         var selectedType = $("select[name='types']").val();
         var description =
-          jsonData["types"]["items"][selectedType]["description"];
+          jsonData?.["types"]?.["items"]?.[selectedType]?.["description"] || "";
         $("#theme-description").text(description);
       }
       updateDescription();
@@ -25,19 +25,24 @@ jQuery(document).ready(function ($) {
         $("select.ghost").each(function () {
           var selectedGhostWriter = $(this).val();
           var selectName = $(this).attr("name");
-          allPrompt +=
-            jsonData[selectName]["items"][selectedGhostWriter]["prompt"] + " ";
+          var prompt = jsonData?.[selectName]?.["items"]?.[selectedGhostWriter]?.[
+            "prompt"
+          ];
+          allPrompt += prompt ? prompt + " " : "";
         });
+        
 
-        var margedPrompt =
-          "@制約条件:" +
-          allPrompt +
-          $('textarea[name="user_prompt"]').val() +
-          " @テーマ:" +
-          $('textarea[name="post_theme"]').val() +
-          " @キーワード:" +
-          $('textarea[name="post_keywords"]').val() +
-          " @出力内容:";
+        var userPrompt = $('textarea[name="user_prompt"]').val();
+        var postTheme = $('textarea[name="post_theme"]').val();
+        var postKeywords = $('textarea[name="post_keywords"]').val();
+
+        var margedPrompt = "";
+        margedPrompt += allPrompt ? "@制約条件:" + allPrompt : "";
+        margedPrompt += userPrompt ? "・" + userPrompt : "";
+        margedPrompt += postTheme ? " @テーマ:" + postTheme : "";
+        margedPrompt += postKeywords ? " @キーワード:" + postKeywords : "";
+        margedPrompt += " @出力内容:";
+
         console.log(margedPrompt);
 
         $.ajax({
