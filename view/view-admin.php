@@ -24,11 +24,11 @@ class CravelChatGptAutoPostAdminView
     ob_start();
 ?>
     <div class="wrap">
-      <h2><?= CRAVEL_CHATGPT_AUTOPOST_PLUGIN_NAME ?>設定</h2>
+      <h2><?= CRAVEL_CHATGPT_AUTOPOST_PLUGIN_NAME ?><?php _e('settings', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN); ?></h2>
       <?php
       if (true == @$_GET['settings-updated']) : ?>
         <div id="settings_updated" class="updated notice is-dismissible">
-          <p><strong>設定を保存しました。</strong></p>
+          <p><strong><?php _e('Settings saved.'); ?></strong></p>
         </div>
       <?php endif; ?>
 
@@ -43,8 +43,8 @@ class CravelChatGptAutoPostAdminView
         ?>
         <div class="nav-tab-wrapper">
           <div class="tab-area">
-            <label class="nav-tab nav-tab-active" for="tab1">プラグイン設定</label>
-            <label class="nav-tab" for="tab2">プラグイン情報</label>
+            <label class="nav-tab nav-tab-active" for="tab1"><?php _e('Settings', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN); ?></label>
+            <label class="nav-tab" for="tab2"><?php _e('Info', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN); ?></label>
           </div>
           <div class="panel-area">
             <div id="panel1" class="tab-panel nav-tab-active">
@@ -73,18 +73,18 @@ class CravelChatGptAutoPostAdminView
     ob_start();
   ?>
     <div class="postbox metabox-holder">
-      <h3 class="hndle">ChatGPT API</h3>
+      <h3 class="hndle"><?php _e('ChatGPT API', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) ?></h3>
       <div class="inside">
         <table class="form-table">
           <tr valign="top">
-            <th scope="row">OpenAI API Key</th>
+            <th scope="row"><?php _e('OpenAI API Key', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) ?></th>
             <td>
               <div><label><input type="text" name="<?= CRAVEL_CHATGPT_AUTOPOST_OPTION ?>[openai_api_key]" value="<?= esc_attr(@$options['openai_api_key']) ?>" />
                 </label></div>
             </td>
           </tr>
           <tr valign="top">
-            <th scope="row">API Model</th>
+            <th scope="row"><?php _e('API Model', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) ?></th>
             <td>
               <div><label>
                   <select name="<?= CRAVEL_CHATGPT_AUTOPOST_OPTION ?>[openai_api_model]">
@@ -112,11 +112,11 @@ class CravelChatGptAutoPostAdminView
     ob_start();
   ?>
     <div class="postbox metabox-holder">
-      <h3 class="hndle">Plugin information</h3>
+      <h3 class="hndle"><?php _e('Plugin information', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) ?></h3>
       <div class="inside">
         <table class="form-table">
           <tr valign="top">
-            <th scope="row">Options</th>
+            <th scope="row"><?php _e('Options', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) ?></th>
             <td>
               <textarea rows="10" cols="50" readonly style="width:100%;"><?= json_encode($options) ?></textarea>
             </td>
