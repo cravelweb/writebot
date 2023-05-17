@@ -4,7 +4,7 @@ namespace CravelPlugins\ChatGptAutoPost;
 
 if (!defined('ABSPATH')) exit;
 
-require_once CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/class/json.php';
+require_once CRAVEL_WRITEBOT_DIR . '/class/json.php';
 
 class CravelGhosts
 {

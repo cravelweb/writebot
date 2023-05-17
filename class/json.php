@@ -16,7 +16,7 @@ class CravelJson
     //$config = get_transient($transient_key);
     $config = false;
     if ($config === false) {
-      $json = file_get_contents(CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/' . $dir . '/' . $name . '.json');
+      $json = file_get_contents(CRAVEL_WRITEBOT_DIR . '/' . $dir . '/' . $name . '.json');
       $config = json_decode($json, true);
       if (json_last_error() !== JSON_ERROR_NONE) {
         error_log('Failed to parse config.json: ' . json_last_error_msg());

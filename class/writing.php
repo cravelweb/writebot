@@ -13,8 +13,8 @@ namespace CravelPlugins\ChatGptAutoPost;
 
 if (!defined('ABSPATH')) exit;
 
-require_once CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/class/openai.php';
-require_once CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DIR . '/class/ghosts.php';
+require_once CRAVEL_WRITEBOT_DIR . '/class/openai.php';
+require_once CRAVEL_WRITEBOT_DIR . '/class/ghosts.php';
 
 
 class CravelChatGptAutoPostWriting
@@ -42,24 +42,24 @@ class CravelChatGptAutoPostWriting
   function enqueue_custom_resources()
   {
     $script_handle = 'cravel_chatgpt_autopost_script';
-    wp_enqueue_script($script_handle, CRAVEL_CHATGPT_AUTOPOST_PLUGIN_URL . 'js/script.js', array('jquery'), '1.0', true);
+    wp_enqueue_script($script_handle, CRAVEL_WRITEBOT_URL . 'js/script.js', array('jquery'), '1.0', true);
     wp_localize_script($script_handle, 'CravelChatGptAutopostAjax', array(
       'ajaxurl' => admin_url('admin-ajax.php'),
       'nonce' => wp_create_nonce('cravel_chatgpt_autopost_nonce'),
-      'ghostUrl' => CRAVEL_CHATGPT_AUTOPOST_PLUGIN_URL . 'ghosts/ghost.json',
+      'ghostUrl' => CRAVEL_WRITEBOT_URL . 'ghosts/ghost.json',
     ));
     $translation_array = array(
-      'constraints' =>  __("Constraints", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),
-      'theme' =>  __("Theme", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),
-      'keywords' =>  __("Keywords", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),
-      'output' =>  __("Output", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),
-      'generating' =>  __("generating...", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),
-      'generated' => __("generated", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN),
-      'error' => __("error", CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN)
+      'constraints' =>  __("Constraints", CRAVEL_WRITEBOT_DOMAIN),
+      'theme' =>  __("Theme", CRAVEL_WRITEBOT_DOMAIN),
+      'keywords' =>  __("Keywords", CRAVEL_WRITEBOT_DOMAIN),
+      'output' =>  __("Output", CRAVEL_WRITEBOT_DOMAIN),
+      'generating' =>  __("generating...", CRAVEL_WRITEBOT_DOMAIN),
+      'generated' => __("generated", CRAVEL_WRITEBOT_DOMAIN),
+      'error' => __("error", CRAVEL_WRITEBOT_DOMAIN)
     );
     wp_localize_script($script_handle, 'text_label', $translation_array);
 
-    wp_enqueue_style('cravel_chatgpt_autopost_style', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_URL . 'css/style.css');
+    wp_enqueue_style('cravel_chatgpt_autopost_style', CRAVEL_WRITEBOT_URL . 'css/style.css');
   }
 
   function handle_ajax_generate_content()
@@ -79,14 +79,14 @@ class CravelChatGptAutoPostWriting
       update_post_meta($post_id, '_generated_content', $content);
       wp_send_json_success($content);
     } else {
-      wp_send_json_error(__("Failed to generate content.", 'cravel-chatgpt-autopost'));
+      wp_send_json_error(__("Failed to generate content.", CRAVEL_WRITEBOT_DOMAIN));
     }
     wp_die();
   }
 
   private function get_options()
   {
-    $options = get_option(CRAVEL_CHATGPT_AUTOPOST_OPTION);
+    $options = get_option(cravel_writebot_option);
     return $options;
   }
 
@@ -100,7 +100,7 @@ class CravelChatGptAutoPostWriting
   {
     add_meta_box(
       'custom_meta_box',
-      'Ghostwriter',
+      CRAVEL_WRITEBOT_NAME,
       array($this, 'display_custom_meta_box'),
       'post',
       'normal',
@@ -120,27 +120,27 @@ class CravelChatGptAutoPostWriting
     }
     $selected_language = $this->get_selected_language($post->ID);
     echo '<div id="ghost-writer-settings" class="ghost-writer-settings">';
-    echo '<h3>' . __('Ghostwriter Settings', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) . '</h3>';
+    echo '<h3>' . CRAVEL_WRITEBOT_NAME . __('settings', CRAVEL_WRITEBOT_DOMAIN) . '</h3>';
     echo '<div>' . $this->get_ghosts_html($ghost_writer_values, $selected_language) . '</div>';
 
     $theme = get_post_meta($post->ID, '_post_theme', true);
-    echo '<h4>' . __('Theme', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) . '</h4>';
+    echo '<h4>' . __('Theme', CRAVEL_WRITEBOT_DOMAIN) . '</h4>';
     echo '<p class="description" id="theme-description"></p>';
     echo '<textarea name="post_theme" rows="5" style="width:100%;">' . esc_html($theme) . '</textarea>';
 
     $keywords = get_post_meta($post->ID, '_post_keywords', true);
-    echo '<h4>' . __('Keywords', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN) . '</h4>';
+    echo '<h4>' . __('Keywords', CRAVEL_WRITEBOT_DOMAIN) . '</h4>';
     echo '<textarea name="post_keywords" rows="2" style="width:100%;">' . esc_html($keywords) . '</textarea>';
-    echo '<p class="description" id="keyword-description">' . __('When you input keywords, an article is generated with content that emphasizes those keywords. Please enter the key points you want to touch upon as the core of the theme, and any SEO-focused keywords.') . '</p>';
+    echo '<p class="description" id="keyword-description">' . __('When you input keywords, an article is generated with content that emphasizes those keywords. Please enter the key points you want to touch upon as the core of the theme, and any SEO-focused keywords.', CRAVEL_WRITEBOT_DOMAIN) . '</p>';
 
-    echo '<button id="generate_content" class="button button-primary">' . __('Generate Content') . '</button>';
+    echo '<button id="generate_content" class="button button-primary">' . __('Generate Content', CRAVEL_WRITEBOT_DOMAIN) . '</button>';
     echo '<div id="openai-api-status"></div><div class="spinner"></div>';
     echo '</div>';
 
     $generated_content = get_post_meta($post->ID, '_generated_content', true);
-    echo '<h3>' . __('Generated Content') . '</h3>';
+    echo '<h3>' . __('Generated Content', CRAVEL_WRITEBOT_DOMAIN) . '</h3>';
     echo '<textarea name="generated_content" rows="10" style="width:100%;">' . esc_html($generated_content) . '</textarea>';
-    echo '<p class="description">' . __('This text is generated by AI. Please copy and paste the above content into the post body if you wish to publish it as the content of the post.') . '</p>';
+    echo '<p class="description">' . __('This text is generated by AI. Please copy and paste the above content into the post body if you wish to publish it as the content of the post.', CRAVEL_WRITEBOT_DOMAIN) . '</p>';
     echo '</div>';
 
     wp_nonce_field(basename(__FILE__), 'gpt_nonce');
@@ -155,7 +155,7 @@ class CravelChatGptAutoPostWriting
       $html .= '<dt>' . $ghost_details['name'] . '</dt>';
       $html .= '<dd>';
       $html .= '<select class="ghost" name="' . $ghost_name . '">';
-      $html .= '<option value="">' . __('Select') . '</option>';
+      $html .= '<option value="">' . __('Select', CRAVEL_WRITEBOT_DOMAIN) . '</option>';
       foreach ($ghost_details['items'] as $option_name => $option_details) {
         $selected = ($option_name == $selected_ghosts[$ghost_name]) ? 'selected' : '';
         $html .= '<option value="' . esc_attr($option_name) . '" ' . $selected . '>' . esc_html($option_details['name']) . '</option>';
@@ -163,14 +163,14 @@ class CravelChatGptAutoPostWriting
       $html .= '</select>';
       $html .= '</dd>';
     }
-    $html .=  '<dt>' . __('Language') . '</dt>';
+    $html .=  '<dt>' . __('Language', CRAVEL_WRITEBOT_DOMAIN) . '</dt>';
     $html .=  '<dd>' . $this->get_languages_html($selected_language) . '</dd>';
 
     $user_prompt = get_option('user_prompt', '');
-    $html .= '<dt>' . __('User Prompt') . '</dt>';
+    $html .= '<dt>' . __('User Prompt', CRAVEL_WRITEBOT_DOMAIN) . '</dt>';
     $html .= '<dd>';
     $html .= '<textarea name="user_prompt" rows="3" style="width:100%;">' . esc_html($user_prompt) . '</textarea>';
-    $html .= '<p class="description">' . __('Enter the text that will be used as the starting point for the AI to generate the content.') . '</p>';
+    $html .= '<p class="description">' . __('Enter the text that will be used as the starting point for the AI to generate the content.', CRAVEL_WRITEBOT_DOMAIN) . '</p>';
     $html .= '<dd>';
     $html .= '</dl>';
     return $html;
