@@ -1,4 +1,5 @@
 jQuery(document).ready(function ($) {
+  var textdomain = "cravel-chatgpt-autopost";
   var jsonUrl = "/wp-content/plugins/ghostwriter/json/ghost.json";
   var jsonData = {};
 
@@ -25,23 +26,29 @@ jQuery(document).ready(function ($) {
         $("select.ghost").each(function () {
           var selectedGhostWriter = $(this).val();
           var selectName = $(this).attr("name");
-          var prompt = jsonData?.[selectName]?.["items"]?.[selectedGhostWriter]?.[
-            "prompt"
-          ];
+          var prompt =
+            jsonData?.[selectName]?.["items"]?.[selectedGhostWriter]?.[
+              "prompt"
+            ];
           allPrompt += prompt ? prompt + " " : "";
         });
-        
 
         var userPrompt = $('textarea[name="user_prompt"]').val();
         var postTheme = $('textarea[name="post_theme"]').val();
         var postKeywords = $('textarea[name="post_keywords"]').val();
 
         var margedPrompt = "";
-        margedPrompt += allPrompt ? "@制約条件:" + allPrompt : "";
+        margedPrompt += allPrompt
+          ? "@" + text_label.constraints + ":" + allPrompt
+          : "";
         margedPrompt += userPrompt ? "・" + userPrompt : "";
-        margedPrompt += postTheme ? " @テーマ:" + postTheme : "";
-        margedPrompt += postKeywords ? " @キーワード:" + postKeywords : "";
-        margedPrompt += " @出力内容:";
+        margedPrompt += postTheme
+          ? " @" + text_label.theme + ":" + postTheme
+          : "";
+        margedPrompt += postKeywords
+          ? " @" + text_label.keywords + ":" + +postKeywords
+          : "";
+        margedPrompt += " @" + text_label.output + ":";
 
         console.log(margedPrompt);
 
@@ -56,7 +63,7 @@ jQuery(document).ready(function ($) {
           },
 
           beforeSend: function () {
-            $("#openai-api-status").html("生成中...");
+            $("#openai-api-status").html(text_label.generating);
             $("#ghost-writer-settings .spinner").addClass("is-active");
           },
 
@@ -64,16 +71,16 @@ jQuery(document).ready(function ($) {
             if (response.success) {
               console.log(response.data);
               $('textarea[name="generated_content"]').val(response.data);
-              $("#openai-api-status").html("文書生成が完了しました");
+              $("#openai-api-status").html(text_label.generated);
             } else {
               console.log(response.data);
-              $("#openai-api-status").html("文書生成に失敗しました");
+              $("#openai-api-status").html(text_label.error);
             }
           },
 
           error: function (response) {
             console.log(response);
-            $("#openai-api-status").html("エラーが発生しました");
+            $("#openai-api-status").html(text_label.error);
           },
 
           complete: function () {
