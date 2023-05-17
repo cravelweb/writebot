@@ -37,3 +37,4 @@ class CravelGhosts
     return $ghost;
   }
 }
+

@@ -40,6 +40,9 @@ class CravelChatGptAutoPostAdmin
     );
   }
 
+
+
+
   public function add_plugin_menu()
   {
     if (empty($GLOBALS['admin_page_hooks']['cravel-chatgpt-autopost-settings'])) {
@@ -57,7 +60,7 @@ class CravelChatGptAutoPostAdmin
 
   function register_plugin_settings()
   {
-    register_setting('cravel-chatgpt-autopost-options', 'cravel_chatgpt_autopost_option');
+    register_setting('cravel-chatgpt-autopost-options', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN);
   }
 
   public function plugin_settings_html()
@@ -71,7 +74,7 @@ class CravelChatGptAutoPostAdmin
     if (isset($input['openai_api_key']) && !empty($input['openai_api_key'])) {
       $input['openai_api_key'] = trim($input['openai_api_key']);
     } else {
-      add_settings_error('cravel_chatgpt_autopost_option', 'missing_openai_api_key', 'ChatGPT API Keyが必要です。', 'error');
+      add_settings_error('cravel_chatgpt_autopost_option', 'missing_openai_api_key', __('You Need ChatGPT API Key.', CRAVEL_CHATGPT_AUTOPOST_PLUGIN_DOMAIN), 'error');
       $options = get_option('cravel_chatgpt_autopost_option');
       $input['openai_api_key'] = $options['openai_api_key'];
     }
