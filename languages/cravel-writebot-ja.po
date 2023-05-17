@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WriteBot AI (ChatGPT Text Generator)\n"
-"POT-Creation-Date: 2023-05-18 01:55+0900\n"
-"PO-Revision-Date: 2023-05-18 01:55+0900\n"
+"POT-Creation-Date: 2023-05-18 02:05+0900\n"
+"PO-Revision-Date: 2023-05-18 02:05+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -21,12 +21,12 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: class/admin.php:50 class/admin.php:51 class/writing.php:123
+#: class/admin.php:48 class/admin.php:49 class/writing.php:123
 #: view/view-admin.php:27
 msgid "settings"
 msgstr "設定"
 
-#: class/admin.php:77
+#: class/admin.php:73
 msgid "You Need ChatGPT API Key."
 msgstr "ChatGPT APY Keyが必要です。"
 
@@ -140,6 +140,10 @@ msgstr "プラグイン情報"
 #: view/view-admin.php:119
 msgid "Options"
 msgstr "オプション"
+
+#: writebot.php:20
+msgid "WriteBot AI"
+msgstr "ライトボットAI"
 
 #. Plugin Name of the plugin/theme
 msgid "WriteBot AI (ChatGPT Text Generator)"

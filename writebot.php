@@ -17,6 +17,7 @@ define('CRAVEL_WRITEBOT_DIR', __DIR__);
 define('CRAVEL_WRITEBOT_URL', plugin_dir_url(__FILE__));
 define('CRAVEL_WRITEBOT_NAME', 'WriteBot AI');
 define('CRAVEL_WRITEBOT_DOMAIN', 'cravel-writebot');
+define('CRAVEL_WRITEBOT_NAME_LOCAL', __('WriteBot AI', CRAVEL_WRITEBOT_DOMAIN));
 
 // オプション名設定
 define('cravel_writebot_option', 'cravel_writebot_option');

@@ -40,20 +40,16 @@ class CravelChatGptAutoPostAdmin
     );
   }
 
-
-
-
   public function add_plugin_menu()
   {
     if (empty($GLOBALS['admin_page_hooks']['cravel-writebot-settings'])) {
-      add_menu_page(
-        CRAVEL_WRITEBOT_NAME . __('settings', CRAVEL_WRITEBOT_DOMAIN),
-        CRAVEL_WRITEBOT_NAME . __('settings', CRAVEL_WRITEBOT_DOMAIN),
+      add_submenu_page(
+        'options-general.php',
+        CRAVEL_WRITEBOT_NAME_LOCAL . __('settings', CRAVEL_WRITEBOT_DOMAIN),
+        CRAVEL_WRITEBOT_NAME_LOCAL . __('settings', CRAVEL_WRITEBOT_DOMAIN),
         'administrator',
         'cravel-writebot-plugin',
-        array($this, 'plugin_settings_html'),
-        'dashicons-format-audio',
-        1000,
+        array($this, 'plugin_settings_html')
       );
     }
   }
