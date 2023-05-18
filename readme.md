@@ -41,7 +41,7 @@ License : [GNU General Public License](http://www.gnu.org/licenses/gpl-2.0.html)
 
 ## 開発者 Developer
 
-Cravel（クラベル）： [Github](https://github.com/cravelweb), [Blog](https://cravelweb.com/)
+Cravel（クラベル）： [Github](https://github.com/cravelweb), [Blog](https://cravelweb.com/), [Buy Me A Coffee](https://www.buymeacoffee.com/cravel)
 
 
 
