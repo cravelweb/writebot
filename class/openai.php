@@ -8,34 +8,40 @@ require_once CRAVEL_WRITEBOT_DIR . '/class/json.php';
 
 class CravelOpenAI
 {
+  private static $options = null;
+  private static $models = null;
+
   static function get_options()
   {
-    return CravelJson::get_json('config');
+    if (self::$options === null) {
+      self::$options = CravelJson::get_json('config');
+    }
+    return self::$options;
   }
 
   static function get_option($key)
   {
-    $options = CravelJson::get_json('config');
-    $value = $options[$key];
-    return $value;
+    $options = self::get_options();
+    return isset($options[$key]) ? $options[$key] : null;
   }
 
   static function get_models()
   {
-    $config = CravelJson::get_json('config');
-
-    $enable_models = CravelOpenAI::get_enable_models();
-    $models = array();
-    foreach ($config['models'] as $model_id => $model_detail) {
-      if (in_array($model_id, $enable_models)) {
-        $models[$model_id] = $model_detail;
+    if (self::$models === null) {
+      $config = self::get_options();
+      $enable_models = self::get_enable_models();
+      self::$models = array();
+      foreach ($config['models'] as $model_id => $model_detail) {
+        if (in_array($model_id, $enable_models)) {
+          self::$models[$model_id] = $model_detail;
+        }
       }
     }
-
-    return $models;
+    return self::$models;
   }
 
   static function get_enable_models()
+
   {
     $api_key = CravelChatGptAutoPostAdmin::get_option('openai_api_key');
     $options = [
@@ -52,7 +58,6 @@ class CravelOpenAI
     $responseData = json_decode($response, true);
 
     $models = array();
-    // id を配列に追加
     foreach ($responseData['data'] as $model) {
       $models[] = $model['id'];
     }
