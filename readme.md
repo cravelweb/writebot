@@ -169,7 +169,7 @@ Writebot AIプラグインでは、この設定ファイルを「ゴーストラ
 
 参考までに、ゴーストライター設定用のjsonのschemaを/json/フォルダ配下に同梱しています。
 
-![schema](https://github.com/cravelweb/writebot/blob/main/json/ghost-schema.json)
+[schema](https://github.com/cravelweb/writebot/blob/main/json/ghost-schema.json)
 
 
 In the content generation screen, you can create a document by combining several options, but these selection items and the prompts corresponding to the selection items can be freely changed using an external file.
