@@ -1,11 +1,15 @@
 jQuery(document).ready(function ($) {
   var textdomain = "cravel-writebot";
   var jsonUrl = CravelChatGptAutopostAjax.ghostUrl;
-  //"/wp-content/plugins/ghostwriter/json/ghost.json";
   var jsonData = {};
 
   fetch(jsonUrl)
-    .then((response) => response.json())
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
     .then((data) => {
       jsonData = data;
 
@@ -41,6 +45,21 @@ jQuery(document).ready(function ($) {
         var postTheme = $('textarea[name="post_theme"]').val();
         var postKeywords = $('textarea[name="post_keywords"]').val();
 
+        if (userPrompt.length > 2000) {
+          alert("User prompt too long, it will be trimmed!");
+          userPrompt = userPrompt.substring(0, 2000);
+        }
+
+        if (postTheme.length > 2000) {
+          alert("Post theme too long, it will be trimmed!");
+          postTheme = postTheme.substring(0, 2000);
+        }
+
+        if (postKeywords.length > 1000) {
+          alert("Post keywords too long, they will be trimmed!");
+          postKeywords = postKeywords.substring(0, 1000);
+        }
+
         var margedPrompt = "";
         margedPrompt += allPrompt
           ? "@" + text_label.constraints + ":" + allPrompt
@@ -54,8 +73,7 @@ jQuery(document).ready(function ($) {
           ? " @" + text_label.keywords + ":" + postKeywords
           : "";
         margedPrompt += " @" + text_label.output + ":";
-
-        console.log(margedPrompt);
+        //console.log(margedPrompt);
 
         $.ajax({
           type: "POST",
@@ -74,28 +92,32 @@ jQuery(document).ready(function ($) {
 
           success: function (response) {
             if (response.success) {
-              console.log(response.data);
+              //console.log(response.data);
               $('textarea[name="generated_content"]').val(response.data);
               $("#openai-api-status").html(text_label.generated);
             } else {
-              console.log(response.data);
+              //console.log(response.data);
               $("#openai-api-status").html(text_label.error);
             }
           },
 
           error: function (response) {
-            console.log(response);
+            //console.log(response);
             $("#openai-api-status").html(text_label.error);
           },
 
           complete: function () {
-            /*setTimeout(function() {
-          $('#openai-api-status').html('');
-        }, 3000);*/
             $("#generate_content").prop("disabled", false);
             $("#ghost-writer-settings .spinner").removeClass("is-active");
           },
         });
       });
+    })
+
+    .catch((error) => {
+      console.error(
+        "There has been a problem with your fetch operation:",
+        error
+      );
     });
 });

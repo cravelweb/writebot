@@ -1,44 +1,29 @@
 <?php
-
 /**
- * 管理画面HTMLビューテンプレート
+ * Admin screen HTML view.
  *
  * @author Cravel <cravel@crabelweb.com>
  * @link https://cravelweb.com
- * 
- * @version 1.0.0
  */
 
 namespace CravelPlugins\ChatGptAutoPost;
-
 
 if (!defined('ABSPATH')) exit;
 
 class CravelChatGptAutoPostAdminView
 {
-  /**
-   * WordPress設定ページを出力
-   */
   public static function plugin_settings_page()
   {
     ob_start();
 ?>
     <div class="wrap">
-      <h2><?= CRAVEL_WRITEBOT_NAME ?><?php _e('settings', CRAVEL_WRITEBOT_DOMAIN); ?></h2>
-      <?php
-      if (true == @$_GET['settings-updated']) : ?>
-        <div id="settings_updated" class="updated notice is-dismissible">
-          <p><strong><?php _e('Settings saved.'); ?></strong></p>
-        </div>
-      <?php endif; ?>
-
+      <h2><?= CRAVEL_WRITEBOT_NAME ?> <?php _e('settings', CRAVEL_WRITEBOT_DOMAIN); ?></h2>
       <form method="post" action="options.php">
         <?php submit_button(); ?>
         <?php
-        // 設定読み込み
         settings_fields('cravel-writebot-options');
         do_settings_sections('cravel-writebot-options');
-        $options = get_option(cravel_writebot_option);
+        $options = get_option(CRAVEL_WRITEBOT_OPTION);
         //var_dump($options);
         ?>
         <div class="nav-tab-wrapper">
@@ -52,11 +37,13 @@ class CravelChatGptAutoPostAdminView
               echo self::ext_tab_content_settings($options);
               ?>
             </div>
+            <?php /*
             <div id="panel2" class="tab-panel">
               <?php
               echo self::ext_tab_content_info($options);
               ?>
             </div>
+*/ ?>
           </div>
         </div>
         <?php submit_button(); ?>
@@ -73,13 +60,12 @@ class CravelChatGptAutoPostAdminView
     ob_start();
   ?>
     <div class="postbox metabox-holder">
-      <h3 class="hndle"><?php _e('ChatGPT API', CRAVEL_WRITEBOT_DOMAIN) ?></h3>
       <div class="inside">
         <table class="form-table">
           <tr valign="top">
             <th scope="row"><?php _e('OpenAI API Key', CRAVEL_WRITEBOT_DOMAIN) ?></th>
             <td>
-              <div><label><input type="text" name="<?= cravel_writebot_option ?>[openai_api_key]" value="<?= esc_attr(@$options['openai_api_key']) ?>" />
+              <div><label><input type="text" name="<?= CRAVEL_WRITEBOT_OPTION ?>[openai_api_key]" value="<?= esc_attr(@$options['openai_api_key']) ?>" />
                 </label></div>
             </td>
           </tr>
@@ -87,15 +73,47 @@ class CravelChatGptAutoPostAdminView
             <th scope="row"><?php _e('API Model', CRAVEL_WRITEBOT_DOMAIN) ?></th>
             <td>
               <div><label>
-                  <select name="<?= cravel_writebot_option ?>[openai_api_model]">
+                  <select name="<?= CRAVEL_WRITEBOT_OPTION ?>[openai_api_model]">
                     <?php
                     $models = CravelOpenAI::get_models();
-                    foreach ($models as $model_name => $model_details) {
-                      echo '<option value="' . $model_name . '" ' . (@$options['openai_api_model'] == $model_name ? 'selected' : '') . '>' . $model_details['displayName'] . '</option>';
+                    if (empty($models)) {
+                      echo '<option value="">' . __('Set [OpenAI API Key] first.', CRAVEL_WRITEBOT_DOMAIN) . '</option>';
+                    } else {
+                      foreach ($models as $model_name => $model_details) {
+                        echo '<option value="' . $model_name . '" ' . (@$options['openai_api_model'] == $model_name ? 'selected' : '') . '>' . $model_details['displayName'] . '</option>';
+                      }
                     }
                     ?>
                   </select>
                 </label></div>
+            </td>
+          </tr>
+          <tr valign="top">
+            <th scope="row"><?php _e('Ghostwriter', CRAVEL_WRITEBOT_DOMAIN) ?></th>
+            <td>
+              <div>
+                <?php
+                $ghost_list = CravelGhosts::get_ghost_list();
+                //var_dump($ghost_list);
+                if (empty($ghost_list)) {
+                  echo '<p>' . __('No ghostwriter found.', CRAVEL_WRITEBOT_DOMAIN) . '</p>';
+                } else {
+                  foreach ($ghost_list as $ghost) {
+                    echo '<div class="radio-item">';
+                    echo '<label><input type="radio" name="' . CRAVEL_WRITEBOT_OPTION . '[ghost]" value="' . $ghost['filename'] . '" ' . (@$options['ghost'] == $ghost['filename'] ? 'checked' : '') . ' />' . $ghost['name'];
+
+                    echo '</label>';
+                    echo '<p class="desctiption">' . $ghost['description'] . '<br>';
+                    if (!empty($ghost['version'])) echo 'Ver.' . $ghost['version'];
+                    if (!empty($ghost['author'])) {
+                      echo ' by ' . (empty($ghost['url']) ? $ghost['author'] : '<a href="' . $ghost['url'] . '" target="_blank">' . $ghost['author'] . '</a>');
+                    }
+                    echo  '</p>';
+                    echo '</div>';
+                  }
+                }
+                ?>
+              </div>
             </td>
           </tr>
         </table>

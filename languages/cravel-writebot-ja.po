@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WriteBot AI (ChatGPT Text Generator)\n"
-"POT-Creation-Date: 2023-05-18 02:05+0900\n"
-"PO-Revision-Date: 2023-05-18 02:05+0900\n"
+"POT-Creation-Date: 2023-05-18 23:34+0900\n"
+"PO-Revision-Date: 2023-05-18 23:35+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: writebot.php\n"
@@ -21,40 +21,40 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: class/admin.php:48 class/admin.php:49 class/writing.php:123
-#: view/view-admin.php:27
+#: class/admin.php:46 class/admin.php:47 class/writing.php:123
+#: view/view-admin.php:20
 msgid "settings"
 msgstr "設定"
 
-#: class/admin.php:73
+#: class/admin.php:66
 msgid "You Need ChatGPT API Key."
 msgstr "ChatGPT APY Keyが必要です。"
 
-#: class/writing.php:52
+#: class/writing.php:53
 msgid "Constraints"
 msgstr "制約条件"
 
-#: class/writing.php:53 class/writing.php:127
+#: class/writing.php:54 class/writing.php:127
 msgid "Theme"
 msgstr "テーマ"
 
-#: class/writing.php:54 class/writing.php:132
+#: class/writing.php:55 class/writing.php:132
 msgid "Keywords"
 msgstr "キーワード"
 
-#: class/writing.php:55
+#: class/writing.php:56
 msgid "Output"
 msgstr "出力"
 
-#: class/writing.php:56
+#: class/writing.php:57
 msgid "generating..."
 msgstr "生成中..."
 
-#: class/writing.php:57
+#: class/writing.php:58
 msgid "generated"
 msgstr "生成完了"
 
-#: class/writing.php:58
+#: class/writing.php:59
 msgid "error"
 msgstr "エラーが発生しました"
 
@@ -92,10 +92,6 @@ msgstr ""
 msgid "Select"
 msgstr "選択"
 
-#: class/writing.php:166
-msgid "Language"
-msgstr "言語"
-
 #: class/writing.php:170
 msgid "User Prompt"
 msgstr "サイト共通プロンプト"
@@ -109,39 +105,51 @@ msgstr ""
 "WordPressサイト全体の文体や書式を整えるためのサイト共通の設定項目のため、内"
 "容を変更すると他の投稿にも反映されます。"
 
-#: view/view-admin.php:31
-msgid "Settings saved."
-msgstr "保存されました。"
+#: class/writing.php:309
+msgid "Invalid response from OpenAI API"
+msgstr "Open AI APIの通信にエラーが発生しました"
 
-#: view/view-admin.php:46
+#: view/view-admin.php:31
 msgid "Settings"
 msgstr "設定"
 
-#: view/view-admin.php:47
+#: view/view-admin.php:32
 msgid "Info"
 msgstr "プラグイン情報"
 
-#: view/view-admin.php:76
+#: view/view-admin.php:63
 msgid "ChatGPT API"
 msgstr ""
 
-#: view/view-admin.php:80
+#: view/view-admin.php:67
 msgid "OpenAI API Key"
 msgstr ""
 
-#: view/view-admin.php:87
+#: view/view-admin.php:74
 msgid "API Model"
 msgstr "APIモデル"
 
-#: view/view-admin.php:115
+#: view/view-admin.php:81
+msgid "Set [OpenAI API Key] first."
+msgstr "初めに「OpenAI API Key」の設定を行ってください。"
+
+#: view/view-admin.php:93
+msgid "Ghostwriter"
+msgstr "ゴーストライター"
+
+#: view/view-admin.php:100
+msgid "No ghostwriter found."
+msgstr "ゴーストライター設定が見つかりませんでした。"
+
+#: view/view-admin.php:134
 msgid "Plugin information"
 msgstr "プラグイン情報"
 
-#: view/view-admin.php:119
+#: view/view-admin.php:138
 msgid "Options"
 msgstr "オプション"
 
-#: writebot.php:20
+#: writebot.php:19
 msgid "WriteBot AI"
 msgstr "ライトボットAI"
 
@@ -160,3 +168,9 @@ msgstr ""
 #. Author URI of the plugin/theme
 msgid "https://cravelweb.com"
 msgstr ""
+
+#~ msgid "Language"
+#~ msgstr "言語"
+
+#~ msgid "Settings saved."
+#~ msgstr "保存されました。"

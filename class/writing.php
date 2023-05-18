@@ -21,6 +21,8 @@ class CravelChatGptAutoPostWriting
 {
   static $instance = false;
 
+  static $ghost_name = 'ghost';
+
   public static function getInstance()
   {
     if (!self::$instance) {
@@ -33,7 +35,6 @@ class CravelChatGptAutoPostWriting
   {
     add_action('add_meta_boxes', array($this, 'add_custom_meta_box'));
     add_action('save_post', array($this, 'save_custom_meta_data'));
-    //add_action('save_post', array($this, 'generate_and_save_post_content'));
     add_action('admin_notices', array($this, 'display_gpt_error_message'));
     add_action('admin_enqueue_scripts', array($this, 'enqueue_custom_resources'));
     add_action('wp_ajax_generate_content', array($this, 'handle_ajax_generate_content'));
@@ -44,21 +45,20 @@ class CravelChatGptAutoPostWriting
     $script_handle = 'cravel_chatgpt_autopost_script';
     wp_enqueue_script($script_handle, CRAVEL_WRITEBOT_URL . 'js/script.js', array('jquery'), '1.0', true);
     wp_localize_script($script_handle, 'CravelChatGptAutopostAjax', array(
-      'ajaxurl' => admin_url('admin-ajax.php'),
-      'nonce' => wp_create_nonce('cravel_chatgpt_autopost_nonce'),
-      'ghostUrl' => CRAVEL_WRITEBOT_URL . 'ghosts/ghost.json',
+      'ajaxurl'  => admin_url('admin-ajax.php'),
+      'nonce'    => wp_create_nonce('cravel_chatgpt_autopost_nonce'),
+      'ghostUrl' => CravelGhosts::get_current_ghost_url()
     ));
     $translation_array = array(
-      'constraints' =>  __("Constraints", CRAVEL_WRITEBOT_DOMAIN),
-      'theme' =>  __("Theme", CRAVEL_WRITEBOT_DOMAIN),
-      'keywords' =>  __("Keywords", CRAVEL_WRITEBOT_DOMAIN),
-      'output' =>  __("Output", CRAVEL_WRITEBOT_DOMAIN),
-      'generating' =>  __("generating...", CRAVEL_WRITEBOT_DOMAIN),
-      'generated' => __("generated", CRAVEL_WRITEBOT_DOMAIN),
-      'error' => __("error", CRAVEL_WRITEBOT_DOMAIN)
+      'constraints' => __("Constraints", CRAVEL_WRITEBOT_DOMAIN),
+      'theme'       => __("Theme", CRAVEL_WRITEBOT_DOMAIN),
+      'keywords'    => __("Keywords", CRAVEL_WRITEBOT_DOMAIN),
+      'output'      => __("Output", CRAVEL_WRITEBOT_DOMAIN),
+      'generating'  => __("generating...", CRAVEL_WRITEBOT_DOMAIN),
+      'generated'   => __("generated", CRAVEL_WRITEBOT_DOMAIN),
+      'error'       => __("error", CRAVEL_WRITEBOT_DOMAIN)
     );
     wp_localize_script($script_handle, 'text_label', $translation_array);
-
     wp_enqueue_style('cravel_chatgpt_autopost_style', CRAVEL_WRITEBOT_URL . 'css/style.css');
   }
 
@@ -86,7 +86,7 @@ class CravelChatGptAutoPostWriting
 
   private function get_options()
   {
-    $options = get_option(cravel_writebot_option);
+    $options = get_option(CRAVEL_WRITEBOT_OPTION);
     return $options;
   }
 
@@ -113,10 +113,10 @@ class CravelChatGptAutoPostWriting
     //echo CravelOpenAI::get_current_model();
     //echo CravelOpenAI::get_current_endpoint_uri();
 
-    $ghosts = CravelGhosts::get_ghosts();
+    $ghost_data = CravelGhosts::get_current_ghost();
     $ghost_writer_values = array();
-    foreach ($ghosts as $ghost_name => $ghost_details) {
-      $ghost_writer_values[$ghost_name] = get_post_meta($post->ID, '_' . $ghost_name, true);
+    foreach ($ghost_data as $ghost_item_name => $ghost_item_details) {
+      $ghost_writer_values[$ghost_item_name] = get_post_meta($post->ID, '_' . $ghost_item_name, true);
     }
     $selected_language = $this->get_selected_language($post->ID);
     echo '<div id="ghost-writer-settings" class="ghost-writer-settings">';
@@ -149,9 +149,9 @@ class CravelChatGptAutoPostWriting
   function get_ghosts_html($selected_ghosts = array(), $selected_language = 'ja')
   {
     $html = "";
-    $ghosts = CravelGhosts::get_ghosts();
+    $ghost_data = CravelGhosts::get_current_ghost();
     $html .= '<dl>';
-    foreach ($ghosts as $ghost_name => $ghost_details) {
+    foreach ($ghost_data as $ghost_name => $ghost_details) {
       $html .= '<dt>' . $ghost_details['name'] . '</dt>';
       $html .= '<dd>';
       $html .= '<select class="ghost" name="' . $ghost_name . '">';
@@ -163,8 +163,8 @@ class CravelChatGptAutoPostWriting
       $html .= '</select>';
       $html .= '</dd>';
     }
-    $html .=  '<dt>' . __('Language', CRAVEL_WRITEBOT_DOMAIN) . '</dt>';
-    $html .=  '<dd>' . $this->get_languages_html($selected_language) . '</dd>';
+    //$html .=  '<dt>' . __('Language', CRAVEL_WRITEBOT_DOMAIN) . '</dt>';
+    //$html .=  '<dd>' . $this->get_languages_html($selected_language) . '</dd>';
 
     $user_prompt = get_option('user_prompt', '');
     $html .= '<dt>' . __('User Prompt', CRAVEL_WRITEBOT_DOMAIN) . '</dt>';
@@ -213,13 +213,11 @@ class CravelChatGptAutoPostWriting
     $this->update_meta($post_id, 'generated_content');
     $this->update_meta($post_id, 'post_keywords');
     $this->update_meta($post_id, 'selected_language');
-    $ghosts = CravelGhosts::get_ghosts();
+    $ghosts = CravelGhosts::get_current_ghost();
     foreach ($ghosts as $ghost_name => $ghost_details) {
       $this->update_meta($post_id, $ghost_name);
     }
   }
-
-
 
   function update_meta($post_id, $field_name)
   {
@@ -236,9 +234,6 @@ class CravelChatGptAutoPostWriting
       delete_post_meta($post_id, '_' . $field_name, $old_value);
     }
   }
-
-
-
 
   function generate_and_save_post_content($post_id)
   {
@@ -270,76 +265,88 @@ class CravelChatGptAutoPostWriting
     return true;
   }
 
+  function set_error($message)
+  {
+    error_log($message);
+    update_option('gpt_error_message', $message);
+    wp_send_json_error(__($message, CRAVEL_WRITEBOT_DOMAIN));
+  }
+
   function generate_content($prompt)
   {
     update_option('gpt_error_message', "");
     $openai_api_key = $this->get_option('openai_api_key');
     if (!$openai_api_key) {
-      error_log("OpenAI API key is not set.");
-      update_option('gpt_error_message', "OpenAI API key is not set.");
-      return "";
+      $this->set_error("OpenAI API key is not set.");
     }
 
     $endpoint_uri = CravelOpenAI::get_current_endpoint_uri();
+
+    $payload = strpos($endpoint_uri, '/chat') !== false ? $this->generate_chat_payload($prompt) : $this->generate_prompt_payload($prompt);
+
     $ch = curl_init($endpoint_uri);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
-
-    if (strpos($endpoint_uri, '/chat') !== false) {
-      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
-        'model' => CravelOpenAI::get_current_model(),
-        'messages' => [
-          [
-            "role" => "user",
-            "content" => $prompt
-          ]
-        ],
-        'max_tokens' => 3000,
-        'temperature' => 0.9,
-        //'stream' => true,
-        'stop' => ['\n', 'Human:', 'AI:'],
-      )));
-    } else {
-      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array(
-        'model' => CravelOpenAI::get_current_model(),
-        'prompt' => $prompt,
-        'max_tokens' => 1500,
-      )));
-    }
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
     curl_setopt($ch, CURLOPT_HTTPHEADER, array(
       'Content-Type: application/json',
       'Authorization: Bearer ' . $openai_api_key,
     ));
 
     $response = curl_exec($ch);
-    error_log('OpenAI API response: ' . $response);
 
     if (curl_errno($ch)) {
-      $error_msg = curl_error($ch);
-      error_log("OpenAI API request failed: " . $error_msg);
-      update_option('gpt_error_message', "OpenAI API request failed: " . $error_msg);
-      return "";
+      $this->set_error("OpenAI API request failed: " . curl_error($ch));
     }
 
     $response_data = json_decode($response, true);
+    $field = strpos($endpoint_uri, '/chat') !== false ? 'message' : 'text';
 
-    if (strpos($endpoint_uri, '/chat') !== false) {
-      if (!isset($response_data['choices'][0]['message']['content'])) {
-        error_log("Invalid response from OpenAI API");
-        update_option('gpt_error_message', "Invalid response from OpenAI API");
-        return "";
+    if (!isset($response_data['choices'][0][$field])) {
+      if (isset($response_data['error'])) {
+        $errormsg = $response_data['error']['message'];
+      } else {
+        $errormsg = __("Invalid response from OpenAI API", CRAVEL_WRITEBOT_DOMAIN);
       }
-      update_option('gpt_error_message', "");
-      return $response_data['choices'][0]['message']['content'];
-    } else {
-      if (!isset($response_data['choices'][0]['text'])) {
-        error_log("Invalid response from OpenAI API");
-        update_option('gpt_error_message', "Invalid response from OpenAI API");
-        return "";
-      }
-      update_option('gpt_error_message', "");
-      return $response_data['choices'][0]['text'];
+      $this->set_error($errormsg);
+      wp_die();
     }
+    update_option('gpt_error_message', "");
+
+    if ($field == 'message') {
+      $response_item =  $response_data['choices'][0][$field]['content'];
+    } else {
+      $response_item =  $response_data['choices'][0][$field];
+    }
+    return $response_item;
+  }
+
+
+
+  private function generate_chat_payload($prompt)
+  {
+    return array(
+      'model' => CravelOpenAI::get_current_model(),
+      'messages' => [
+        [
+          "role" => "user",
+          "content" => $prompt
+        ]
+      ],
+      'max_tokens' => 3000,
+      'temperature' => 0.9,
+      //'stream' => true,
+      'stop' => ['\n', 'Human:', 'AI:'],
+    );
+  }
+
+  private function generate_prompt_payload($prompt)
+  {
+    return array(
+      'model' => CravelOpenAI::get_current_model(),
+      'prompt' => $prompt,
+      'max_tokens' => 1500,
+    );
   }
 
   function display_gpt_error_message()

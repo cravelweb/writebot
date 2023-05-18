@@ -2,7 +2,7 @@
 /*
   Plugin Name: WriteBot AI (ChatGPT Text Generator)
   Description: Use ChatGPT to create articles automatically.
-  Version: 0.5.0
+  Version: 0.5.1
   Author: Cravel
   Author URI: https://cravelweb.com
  */
