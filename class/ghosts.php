@@ -56,6 +56,9 @@ class CravelGhosts
   static function get_current_ghost_name()
   {
     $ghost_file_name = CravelChatGptAutoPostAdmin::get_option('ghost');
+    if (empty($ghost_file_name)) {
+      $ghost_file_name = 'ghost';
+    }
     return $ghost_file_name;
   }
 

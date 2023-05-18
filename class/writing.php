@@ -114,6 +114,11 @@ class CravelChatGptAutoPostWriting
     //echo CravelOpenAI::get_current_endpoint_uri();
 
     $ghost_data = CravelGhosts::get_current_ghost();
+    if (empty($ghost_data)) {
+      echo '<div class="error"><p>' . __('Please select a ghost from the settings page.', CRAVEL_WRITEBOT_DOMAIN) . '</p></div>';
+      return;
+    }
+
     $ghost_writer_values = array();
     foreach ($ghost_data as $ghost_item_name => $ghost_item_details) {
       $ghost_writer_values[$ghost_item_name] = get_post_meta($post->ID, '_' . $ghost_item_name, true);
@@ -150,6 +155,10 @@ class CravelChatGptAutoPostWriting
   {
     $html = "";
     $ghost_data = CravelGhosts::get_current_ghost();
+    if (empty($ghost_data)) {
+      return $html;
+    }
+
     $html .= '<dl>';
     foreach ($ghost_data as $ghost_name => $ghost_details) {
       $html .= '<dt>' . $ghost_details['name'] . '</dt>';
@@ -214,8 +223,10 @@ class CravelChatGptAutoPostWriting
     $this->update_meta($post_id, 'post_keywords');
     $this->update_meta($post_id, 'selected_language');
     $ghosts = CravelGhosts::get_current_ghost();
-    foreach ($ghosts as $ghost_name => $ghost_details) {
-      $this->update_meta($post_id, $ghost_name);
+    if (!empty($ghosts)) {
+      foreach ($ghosts as $ghost_name => $ghost_details) {
+        $this->update_meta($post_id, $ghost_name);
+      }
     }
   }
 
