@@ -1,7 +1,6 @@
 <?php
 /*
   Plugin Name: WriteBot AI (ChatGPT Text Generator)
-  Plugin URI : https://knowten.jp
   Description: Use ChatGPT to create articles automatically.
   Version: 0.5.0
   Author: Cravel
@@ -18,9 +17,7 @@ define('CRAVEL_WRITEBOT_URL', plugin_dir_url(__FILE__));
 define('CRAVEL_WRITEBOT_NAME', 'WriteBot AI');
 define('CRAVEL_WRITEBOT_DOMAIN', 'cravel-writebot');
 define('CRAVEL_WRITEBOT_NAME_LOCAL', __('WriteBot AI', CRAVEL_WRITEBOT_DOMAIN));
-
-// オプション名設定
-define('cravel_writebot_option', 'cravel_writebot_option');
+define('CRAVEL_WRITEBOT_OPTION', 'cravel_writebot_option');
 
 require_once CRAVEL_WRITEBOT_DIR . '/class/admin.php';
 require_once CRAVEL_WRITEBOT_DIR . '/class/writing.php';
