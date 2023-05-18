@@ -11,6 +11,7 @@ This plugin works in Japanese and English WordPress environments.
 
 
 
+
 ## ライセンス License
 
 Writebot AIプラグインは 100％GPL です。
@@ -37,9 +38,11 @@ License : [GNU General Public License](http://www.gnu.org/licenses/gpl-2.0.html)
 
 
 
+
 ## 開発者 Developer
 
 Cravel（クラベル）： [Github](https://github.com/cravelweb), [Blog](https://cravelweb.com/)
+
 
 
 
@@ -49,18 +52,19 @@ Cravel（クラベル）： [Github](https://github.com/cravelweb), [Blog](https
 
 プロジェクトファイルをzip形式でダウンロード（Download ZIP メニュー）し、このzipファイルをWordPress管理画面のプラグインの「新規追加」メニューよりインストールしてください。
 
-インストールが完了すると、WordPress管理画面の「設定」メニュー内に「WriteBot AI設定」が追加されます。
+インストールが完了すると、WordPress管理画面の「設定」メニュー内に「WriteBot AI 設定」が追加されます。
 
 
 Download the project file in zip format (Download ZIP menu), and install this zip file from the 'Add New' menu of the WordPress admin panel's plugins.
 
-Once installed, 'WriteBot AI Settings' will be added to the 'Settings' menu in the WordPress admin pane
+Once installed, 'WriteBot AI settings' will be added to the 'Settings' menu in the WordPress admin pane
+
 
 
 
 ### 初期設定 Initial settings
 
-「WriteBot AI設定」メニューをクリックすると設定画面が表示されます。
+「WriteBot AI 設定」メニューをクリックすると設定画面が表示されます。
 
 設定画面の「Open AI API KEY」ボックスに、Open AIから取得したAPIキー「sk-....」を入力してください。
 
@@ -88,6 +92,7 @@ Usually, it is common to use 'gpt-3.5-turbo (ChatGPT)' or 'gpt-4'.
 
 
 
+
 ### コンテンツの自動生成 Automatic generation of content
 
 コンテンツの生成は投稿の編集画面から行います。投稿の新規作成などから編集画面を開くと画面下のメタボックスエリアに「Writebot AI」エリアが表示されます。
@@ -112,6 +117,7 @@ The generated text is stored in a textbox within the metabox area.
 Since this text box itself is not particularly linked to the content display of the post, please copy and paste the generated text when using it in the post body.
 
 Meta box settings are saved for each post page, so you can temporarily save the text and prompt settings generated for each post as they are.
+
 
 
 
@@ -144,29 +150,38 @@ Please utilize these customizations as well if you want to create more free docu
 
 
 
+
 ## ゴーストライター設定（ghost.json）
 
 コンテンツ生成画面ではいくつかの選択肢を組み合わせて文書生成を行うことができますが、これらの選択項目および選択項目に対応するプロンプトは外部ファイルを使って自由に変更することが可能です。
 
 Writebot AIプラグインでは、この設定ファイルを「ゴーストライター」と呼んでいます。
 
-ゴーストライター設定ファイルはプラグインの「/ghosts」ディレクトリに配置されており、プラグインは自動的に「ghost.json」ファイルを読み取るように動作しています。
+ゴーストライター設定ファイルは基本的なプロンプトをまとめた日本語用と英語用の2種類を同梱しており、切り替えはWritebot AIの設定画面から行うことができます。
 
-※現在のプラグインではゴーストライター設定ファイルの切り替え機能が実装されていませんが、今後WordPressの管理画面からもゴーストライター設定の切り替えやダウンロードなどに対応していければと考えています。
+また、ゴーストライター設定ファイルはプラグインの「/ghosts」ディレクトリに配置されており、プラグインは自動的にこのディレクトリ内のゴーストライターファイルをリストアップします。
 
-※英語環境でご利用の方は、「/ghosts」ディレクトリ内にある「ghost-en.json」ファイルの名前を「ghost.json」にリネームすることで、英語のゴーストライター（プロンプト）を利用することが可能です。
+オリジナルのゴーストライター設定ファイルを用意することで、更に自由なプロンプトをChatGPTに与えて文書生成を効率化させることも可能です。
+
+※現在のバージョンではゴーストライター設定ファイルの追加はFTPなどを使って行う必要がありますが、今後WordPressの管理画面からもゴーストライターの追加ダウンロードや配布に対応していければと考えています。
 
 ゴーストライター設定ファイルはjson形式で構成されています。詳細は順次解説できればと思いますが、構造自体は単純なので同梱されているファイルを参考にカスタマイズしてください。
 
+参考までに、ゴーストライター設定用のjsonのschemaを/json/フォルダ配下に同梱しています。
 
-The content generation screen allows you to generate documents by combining several choices, but these choice items and the prompts corresponding to the choice items can be freely changed using an external file.
+![schema](https://github.com/cravelweb/writebot/blob/main/json/ghost-schema.json)
 
-In the Writebot AI plugin, we call this configuration file a 'ghostwriter'.
 
-The ghostwriter configuration file is located in the '/ghosts' directory of the plugin, and the plugin operates to automatically read the 'ghost.json' file.
+In the content generation screen, you can create a document by combining several options, but these selection items and the prompts corresponding to the selection items can be freely changed using an external file.
 
-*Although the current version of the plugin does not implement the ghostwriter configuration file switching function, we are considering supporting switching and downloading of ghostwriter settings from the WordPress admin panel in the future.
+In the Writebot AI plugin, we call this setting file a "Ghostwriter".
 
-*If you are using an English environment, rename the "ghost-en.json" file in the "/ghosts" directory to "ghost.json" to use the English ghostwriter (prompt). is possible.
+The Ghostwriter setting file comes with two types, one for Japanese and one for English, which encapsulate basic prompts. You can switch between these from the Writebot AI settings screen.
 
-Ghostwriter configuration files are configured in json format. I wish I could explain the details one by one, but since the structure itself is simple, please customize it by referring to the included file.
+Also, the Ghostwriter setting file is placed in the "/ghosts" directory of the plugin, and the plugin automatically lists the Ghostwriter files in this directory.
+
+By preparing an original Ghostwriter setting file, it is also possible to give more free prompts to ChatGPT and make document generation more efficient.
+
+In the current version, you need to add the Ghostwriter setting file using FTP or similar, but we are considering supporting the addition, download, and distribution of Ghostwriters from the WordPress management screen in the future.
+
+The Ghostwriter setting file is composed in json format. We hope to explain the details gradually, but the structure itself is simple, so please customize it by referring to the included file.
