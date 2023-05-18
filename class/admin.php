@@ -31,11 +31,9 @@ class CravelChatGptAutoPostAdmin
   function __construct()
   {
     add_action('admin_menu', array($this, 'add_plugin_menu'));
-    add_action('admin_init', array($this, 'register_plugin_settings'));
-
     register_setting(
       'cravel-writebot-options',
-      cravel_writebot_option,
+      CRAVEL_WRITEBOT_OPTION,
       array($this, 'validate_options')
     );
   }
@@ -45,18 +43,13 @@ class CravelChatGptAutoPostAdmin
     if (empty($GLOBALS['admin_page_hooks']['cravel-writebot-settings'])) {
       add_submenu_page(
         'options-general.php',
-        CRAVEL_WRITEBOT_NAME_LOCAL . __('settings', CRAVEL_WRITEBOT_DOMAIN),
-        CRAVEL_WRITEBOT_NAME_LOCAL . __('settings', CRAVEL_WRITEBOT_DOMAIN),
+        CRAVEL_WRITEBOT_NAME_LOCAL ." ". __('settings', CRAVEL_WRITEBOT_DOMAIN),
+        CRAVEL_WRITEBOT_NAME_LOCAL ." ". __('settings', CRAVEL_WRITEBOT_DOMAIN),
         'administrator',
         'cravel-writebot-plugin',
         array($this, 'plugin_settings_html')
       );
     }
-  }
-
-  function register_plugin_settings()
-  {
-    register_setting('cravel-writebot-options', CRAVEL_WRITEBOT_DOMAIN);
   }
 
   public function plugin_settings_html()
@@ -67,11 +60,11 @@ class CravelChatGptAutoPostAdmin
 
   function validate_options($input)
   {
-    if (isset($input['openai_api_key']) && !empty($input['openai_api_key'])) {
+    if (isset($input['openai_api_key'])) {
       $input['openai_api_key'] = trim($input['openai_api_key']);
     } else {
-      add_settings_error('cravel_writebot_option', 'missing_openai_api_key', __('You Need ChatGPT API Key.', CRAVEL_WRITEBOT_DOMAIN), 'error');
-      $options = get_option('cravel_writebot_option');
+      add_settings_error(CRAVEL_WRITEBOT_OPTION, 'missing_openai_api_key', __('You Need ChatGPT API Key.', CRAVEL_WRITEBOT_DOMAIN), 'error');
+      $options = get_option(CRAVEL_WRITEBOT_OPTION);
       $input['openai_api_key'] = $options['openai_api_key'];
     }
 
@@ -80,7 +73,11 @@ class CravelChatGptAutoPostAdmin
 
   static function get_option($key)
   {
-    $options = get_option(cravel_writebot_option);
+    $options = get_option(CRAVEL_WRITEBOT_OPTION);
+    if (!is_array($options) || !array_key_exists($key, $options)) {
+      error_log("Key $key does not exist in options.");
+      return null;
+    }
     return $options[$key];
   }
 }
