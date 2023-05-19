@@ -1,4 +1,10 @@
 <?php
+ /**
+ * Writebot AI WordPress Plugin
+ * @author Cravel <cravel@crabelweb.com>
+ * @link https://cravelweb.com
+ * @license: http://www.gnu.org/licenses/gpl-2.0.html GPL v2 or later
+ */
 
 namespace CravelPlugins\ChatGptAutoPost;
 
@@ -14,7 +20,7 @@ class CravelOpenAI
   static function get_options()
   {
     if (self::$options === null) {
-      self::$options = CravelJson::get_json('config');
+      self::$options = CravelJson::load_json_from_file('config');
     }
     return self::$options;
   }

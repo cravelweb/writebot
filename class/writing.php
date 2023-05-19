@@ -1,12 +1,9 @@
 <?php
-
-/**
- * ChatGPT AutoPost
- *
+ /**
+ * Writebot AI WordPress Plugin
  * @author Cravel <cravel@crabelweb.com>
  * @link https://cravelweb.com
- * 
- * @version 1.0.0
+ * @license: http://www.gnu.org/licenses/gpl-2.0.html GPL v2 or later
  */
 
 namespace CravelPlugins\ChatGptAutoPost;
@@ -124,7 +121,7 @@ class CravelChatGptAutoPostWriting
       $ghost_writer_values[$ghost_item_name] = get_post_meta($post->ID, '_' . $ghost_item_name, true);
     }
     $selected_language = $this->get_selected_language($post->ID);
-    echo '<div id="ghost-writer-settings" class="ghost-writer-settings">';
+    echo '<div id="writebot-metabox" class="writebot-metabox">';
     echo '<h3>' . CRAVEL_WRITEBOT_NAME . __('settings', CRAVEL_WRITEBOT_DOMAIN) . '</h3>';
     echo '<div>' . $this->get_ghosts_html($ghost_writer_values, $selected_language) . '</div>';
 

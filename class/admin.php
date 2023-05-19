@@ -1,12 +1,9 @@
 <?php
-
-/**
- * 管理画面
- *
+ /**
+ * Writebot AI WordPress Plugin
  * @author Cravel <cravel@crabelweb.com>
  * @link https://cravelweb.com
- * 
- * @version 1.0.0
+ * @license: http://www.gnu.org/licenses/gpl-2.0.html GPL v2 or later
  */
 
 namespace CravelPlugins\ChatGptAutoPost;
