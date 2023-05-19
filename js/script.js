@@ -87,7 +87,7 @@ jQuery(document).ready(function ($) {
 
           beforeSend: function () {
             $("#openai-api-status").html(text_label.generating);
-            $("#ghost-writer-settings .spinner").addClass("is-active");
+            $("#writebot-metabox .spinner").addClass("is-active");
           },
 
           success: function (response) {
@@ -108,7 +108,7 @@ jQuery(document).ready(function ($) {
 
           complete: function () {
             $("#generate_content").prop("disabled", false);
-            $("#ghost-writer-settings .spinner").removeClass("is-active");
+            $("#writebot-metabox .spinner").removeClass("is-active");
           },
         });
       });

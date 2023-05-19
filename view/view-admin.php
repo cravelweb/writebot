@@ -1,9 +1,10 @@
 <?php
+
 /**
- * Admin screen HTML view.
- *
+ * Writebot AI WordPress Plugin
  * @author Cravel <cravel@crabelweb.com>
  * @link https://cravelweb.com
+ * @license: http://www.gnu.org/licenses/gpl-2.0.html GPL v2 or later
  */
 
 namespace CravelPlugins\ChatGptAutoPost;
@@ -16,7 +17,7 @@ class CravelChatGptAutoPostAdminView
   {
     ob_start();
 ?>
-    <div class="wrap">
+    <div class="wrap writebox-settings">
       <h2><?= CRAVEL_WRITEBOT_NAME ?> <?php _e('settings', CRAVEL_WRITEBOT_DOMAIN); ?></h2>
       <form method="post" action="options.php">
         <?php submit_button(); ?>
@@ -111,6 +112,9 @@ class CravelChatGptAutoPostAdminView
                     echo  '</p>';
                     echo '</div>';
                   }
+                  echo '<div class="radio-item">';
+                  echo '<label><input type="radio" name="' . CRAVEL_WRITEBOT_OPTION . '[ghost]" value="_url" ' . (@$options['ghost'] == '_url' ? 'checked' : '') . ' />' . __('インターネットから取得', CRAVEL_WRITEBOT_DOMAIN) . '</label>';
+                  echo '<input type="text" name="' . CRAVEL_WRITEBOT_OPTION . '[ghost_url]" value="' . esc_attr(@$options['ghost_url']) . '" style="width:100%;" placeholder="' . __('https:// ... ゴーストライター設定ファイルのURL (*.json)', CRAVEL_WRITEBOT_DOMAIN) . '" />';
                 }
                 ?>
               </div>
