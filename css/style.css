@@ -1,22 +1,20 @@
-.wp-admin .ghost-writer-settings h3 {
+.wp-admin .writebot-metabox h3 {
   font-size: 14px;
   padding: 8px;
   background-color: #eee;
 }
-
-.wp-admin .ghost-writer-settings dl {
+.wp-admin .writebot-metabox dl {
   display: flex;
   flex-wrap: wrap;
 }
-.wp-admin .ghost-writer-settings dt {
+.wp-admin .writebot-metabox dl dt {
   margin: 0 0 8px 0;
   width: 170px;
 }
-.wp-admin .ghost-writer-settings dd {
+.wp-admin .writebot-metabox dl dd {
   margin: 0 0 8px 0;
   width: calc(100% - 200px);
 }
-
-.wp-admin .radio-item {
-  padding:0 0 16px 0;
-}
+.wp-admin .writebox-settings .radio-item {
+  padding: 0 0 16px 0;
+}/*# sourceMappingURL=style.css.map */

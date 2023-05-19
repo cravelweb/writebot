@@ -1,0 +1,28 @@
+.wp-admin {
+  .writebot-metabox {
+    h3 {
+      font-size: 14px;
+      padding: 8px;
+      background-color: #eee;
+    }
+
+    dl {
+      display: flex;
+      flex-wrap: wrap;
+
+      dt {
+        margin: 0 0 8px 0;
+        width: 170px;
+      }
+      dd {
+        margin: 0 0 8px 0;
+        width: calc(100% - 200px);
+      }
+    }
+  }
+  .writebox-settings {
+    .radio-item {
+      padding: 0 0 16px 0;
+    }
+  }
+}
