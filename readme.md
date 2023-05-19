@@ -1,6 +1,6 @@
 # Writebot AI
 
-Writebot AIは、OpenAI API (ChatGPT) を使ってWordPressの投稿記事を自動生成するWprdPressプラグインです。
+Writebot AIは、OpenAI API (ChatGPT) を使ってWordPressの投稿記事を自動生成するWordPressプラグインです。
 
 日本語および英語環境に対応しています。
 
