@@ -2,14 +2,13 @@
 /*
   Plugin Name: WriteBot AI (ChatGPT Text Generator)
   Description: Use ChatGPT to create articles automatically.
-  Version: 1.0.0
+  Version: 1.1.0
   Author: Cravel
   Author URI: https://cravelweb.com
   Donate link: https://www.buymeacoffee.com/cravel
  */
 
 namespace CravelPlugins\ChatGptAutoPost;
-
 
 if (!defined('ABSPATH')) exit;
 
